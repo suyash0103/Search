@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences searchPrefs;
     ArrayAdapter searchAdapter;
     ArrayList<String> historyList, responseList;
-    LinearLayout main;
+    LinearLayout main, parent;
     DisplayMetrics displayMetrics;
     float remainingWidth = 0;
     String search;
     TextView mTextSample;
+    ListView listView;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         Log.v("Hello", "Hello");
 
+        menu = (Menu) findViewById(R.id.menuSearch);
         main = (LinearLayout) findViewById(R.id.main_view);
+        parent = (LinearLayout) findViewById(R.id.parent);
+        listView = (ListView) findViewById(R.id.searchId);
+
+        parent.setVisibility(View.INVISIBLE);
+        listView.setVisibility(View.INVISIBLE);
 
         searchPrefs = getApplicationContext().getSharedPreferences("Searches", MODE_PRIVATE);
         SharedPreferences.Editor edit = searchPrefs.edit();
@@ -187,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//        menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                parent.setVisibility(View.VISIBLE);
+//            }
+//        });
+
 //        TextWatcher textWatcher = new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -246,6 +261,15 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
+
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                parent.setVisibility(View.VISIBLE);
+//                return false;
+//            }
+//        });
+
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -263,9 +287,12 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter searchAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, historyList);
                     listView.setAdapter(searchAdapter);
                     Log.v("Empty edit text", "Empty edit text");
+                    parent.setVisibility(View.VISIBLE);
                 }
                 else
                 {
+                    parent.setVisibility(View.INVISIBLE);
+                    listView.setVisibility(View.VISIBLE);
                     responseList = new ArrayList<>();
                     responseList.add("Travel");
                     responseList.add("TravelKhana");
@@ -284,19 +311,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private class MyClickableSpan extends ClickableSpan {
-        private final String mText;
-        private MyClickableSpan(final String text) {
-            mText = text;
-
-        }
-        @Override
-        public void onClick(final View widget) {
-            Log.wtf("You Clicked",mText);
-            //mListener.onTagClicked(mText);
-        }
     }
 
     private void makeTagLinks(final String text, final TextView tv) {
@@ -342,6 +356,19 @@ public class MainActivity extends AppCompatActivity {
         tv.setTransformationMethod(null);
 
         tv.setText(ss, TextView.BufferType.SPANNABLE);
+    }
+
+    private class MyClickableSpan extends ClickableSpan {
+        private final String mText;
+        private MyClickableSpan(final String text) {
+            mText = text;
+
+        }
+        @Override
+        public void onClick(final View widget) {
+            Log.wtf("You Clicked",mText);
+            //mListener.onTagClicked(mText);
+        }
     }
 
 }
