@@ -10,7 +10,7 @@ public class RoundedBackgroundSpan2 extends ReplacementSpan {
 
     private static final int CORNER_RADIUS = 28;
 
-    private static final float PADDING_X = GeneralUtils.convertDpToPx(25);
+    private static final float PADDING_X = GeneralUtils.convertDpToPx(0);
     private static final float PADDING_Y = GeneralUtils.convertDpToPx(2);
 
     private static final float MAGIC_NUMBER = GeneralUtils.convertDpToPx(2);
@@ -45,7 +45,7 @@ public class RoundedBackgroundSpan2 extends ReplacementSpan {
         float textHeightWrapping = GeneralUtils.convertDpToPx(4);
         float tagBottom = top + textHeightWrapping + PADDING_Y + mTextSize + PADDING_Y + textHeightWrapping;
         float tagRight = x + getTagWidth(text, start, end, paint);
-        RectF rect = new RectF(x+5, top-5, tagRight + 40, tagBottom +20);
+        RectF rect = new RectF(x + 5, top - 5, tagRight + 40, tagBottom + 20);
         canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, strokePaint);
         canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, paint);
 

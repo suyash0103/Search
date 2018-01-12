@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTextSample = (TextView) findViewById(R.id.text);
         String text = "Flipkart     Jabongjjjjjj     Makemytrip     Myntra     Indiadaag     iiindia     leststst     koaosoaos     poasslsoamas     hhjjvhhghgh     kjkygfhgfhg     jhgjghghg";
-        makeTagLinks(text,mTextSample);
+        makeTagLinks(text, mTextSample);
 
         // searchText = findViewById(R.id.menuSearch);
 
@@ -281,16 +281,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 // Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
-                if(TextUtils.isEmpty(s))
-                {
+                if (TextUtils.isEmpty(s)) {
                     ListView listView = (ListView) findViewById(R.id.searchId);
                     ArrayAdapter searchAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, historyList);
                     listView.setAdapter(searchAdapter);
                     Log.v("Empty edit text", "Empty edit text");
                     parent.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     parent.setVisibility(View.INVISIBLE);
                     listView.setVisibility(View.VISIBLE);
                     responseList = new ArrayList<>();
@@ -327,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
 //        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.rounded_corner);
 //        int width = height * drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
 //        drawable.setBounds(0, 0, width, height);
-        float textSize = 13 * getResources().getDisplayMetrics().scaledDensity; // sp to px
+        float textSize = 11 * getResources().getDisplayMetrics().scaledDensity; // sp to px
 
 
         for (final String item : items) {
@@ -339,17 +336,13 @@ public class MainActivity extends AppCompatActivity {
                 d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
                 ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
                 ImageSpan imageSpan = new ImageSpan(getResources().getDrawable(R.drawable.ic_restore_black_24dp), ImageSpan.ALIGN_BOTTOM);
-//                Drawable d = getResources().getDrawable(R.drawable.rounded_corner);
-//                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-//                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
                 RoundedBackgroundSpan2 tagSpan = new RoundedBackgroundSpan2(Color.GRAY, Color.BLACK, textSize);
 
-                ss.setSpan(new RoundedBackgroundSpan2(Color.GRAY,Color.BLACK,textSize),start,end, 0);
-                //ss.setSpan(new RoundedBackgroundSpan3(Color.GRAY,Color.BLACK),start,end,0);
+                ss.setSpan(new RoundedBackgroundSpan2(Color.GRAY, Color.BLACK, textSize), start, end, 0);
                 ss.setSpan(new MyClickableSpan(item), start, end, 0);
             }
 
-            start += item.length()+5;//comma and space in the original text ;)
+            start += item.length() + 5;//comma and space in the original text ;)
         }
 
         tv.setMovementMethod(LinkMovementMethod.getInstance());
@@ -360,13 +353,15 @@ public class MainActivity extends AppCompatActivity {
 
     private class MyClickableSpan extends ClickableSpan {
         private final String mText;
+
         private MyClickableSpan(final String text) {
             mText = text;
 
         }
+
         @Override
         public void onClick(final View widget) {
-            Log.wtf("You Clicked",mText);
+            Log.wtf("You Clicked", mText);
             //mListener.onTagClicked(mText);
         }
     }
